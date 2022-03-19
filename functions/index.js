@@ -9,9 +9,7 @@ export async function onRequest(context) {
     data, // arbitrary space for passing data between middlewares
   } = context;
 
-  console.log(context);
-
-  return new Response('... cf.jeronimodesign.com ...', {
-    headers: { 'content-type': 'text/plain' },
+  return new Response(JSON.stringify(context), {
+    headers: { 'content-type': 'application/json;charset=UTF-8' },
   });
 }
