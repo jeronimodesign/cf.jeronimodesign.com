@@ -10,6 +10,15 @@ async function errorHandler(context) {
   }
 }
 
+async function getVisitorIpAddress(context) {
+  const response = await context.next();
+  const ipAddress = context.request.headers.get('CF-Connecting-IP');
+
+  response.headers.set('X-VisitorIpAddress', ipAddress);
+
+  return response;
+}
+
 async function headerTest(context) {
   const response = await context.next();
 
