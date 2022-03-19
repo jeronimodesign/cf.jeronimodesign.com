@@ -1,6 +1,7 @@
 async function errorHandler(context) {
   try {
     context.data.timestamp = Date.now();
+    context.data.visitorIpAddress = context.request.headers.get('CF-Connecting-IP');
 
     // wait for the next function to finish
     return await context.next();
@@ -10,22 +11,4 @@ async function errorHandler(context) {
   }
 }
 
-async function getVisitorIpAddress(context) {
-  const response = await context.next();
-  const ipAddress = context.request.headers.get('CF-Connecting-IP');
-
-  response.headers.set('X-VisitorIpAddress', ipAddress);
-
-  return response;
-}
-
-async function headerTest(context) {
-  const response = await context.next();
-
-  response.headers.set('X-Timestamp', context.data.timestamp);
-
-  return response;
-
-}
-
-export const onRequest = [errorHandler, getVisitorIpAddress, headerTest];
+export const onRequest = [errorHandler];
