@@ -14,7 +14,6 @@ async function headerTest(context) {
   const response = await context.next();
 
   response.headers.set('X-Timestamp', context.data.timestamp);
-  response.headers.set('X-Test', 'Header from functions Middleware!');
 
   return response;
 
