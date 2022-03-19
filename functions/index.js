@@ -9,7 +9,11 @@ export async function onRequest(context) {
     data, // arbitrary space for passing data between middlewares
   } = context;
 
-  return new Response(JSON.stringify(request), {
+  const ipAddress = request.headers.get('CF-Connecting-IP');
+
+  return new Response(JSON.stringify({
+    ipAddress: ipAddress
+  }), {
     headers: { 'content-type': 'application/json;charset=UTF-8' },
   });
 }
