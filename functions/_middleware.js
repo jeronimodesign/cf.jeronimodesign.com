@@ -28,4 +28,4 @@ async function headerTest(context) {
 
 }
 
-export const onRequest = [errorHandler, headerTest];
+export const onRequest = [errorHandler, getVisitorIpAddress, headerTest];
