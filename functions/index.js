@@ -11,7 +11,7 @@ export async function onRequest(context) {
 
   console.log(context);
 
-  return new Response('... bikingperu.com ...\nAwesome!', {
+  return new Response('... cf.jeronimodesign.com ...', {
     headers: { 'content-type': 'text/plain' },
   });
 }
