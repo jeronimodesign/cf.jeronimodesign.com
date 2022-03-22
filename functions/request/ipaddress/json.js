@@ -5,7 +5,11 @@ export async function onRequest(context) {
             ipAddress: context.data.visitorIpAddress
         }
     }), {
-        headers: { 'content-type': 'application/json;charset=UTF-8' }
+        headers: { 
+            'content-type': 'application/json;charset=UTF-8',
+            'X-Timestamp':context.data.timestamp,
+            'X-ProcessTime': Date.now() - context.data.timestamp
+        }
     });
 }
   
