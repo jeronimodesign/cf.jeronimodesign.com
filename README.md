@@ -4,3 +4,6 @@ Test of Cloudflare Pages to replace api.jeronimodesign.com
 ## Request
 
 ### Json
+
+### Text
+
