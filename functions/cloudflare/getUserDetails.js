@@ -27,9 +27,8 @@ export async function onRequest(context) {
             'Authorization': 'Bearer ' + context.env.TOKEN_USER_DETAILS_READ
             },
         },
+        response = await fetch(url, init),
         results = await gatherResponse(response);
-
-    const response = await fetch(url, init);
 
     return new Response(JSON.stringify({
         status: "OK",
