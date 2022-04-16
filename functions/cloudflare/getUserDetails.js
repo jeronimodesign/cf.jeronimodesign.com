@@ -32,7 +32,7 @@ export async function onRequest(context) {
 
     return new Response(JSON.stringify({
         status: "OK",
-        data: JSON.parse(results)
+        // data: JSON.parse(results)
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
