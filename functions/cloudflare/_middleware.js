@@ -1,6 +1,6 @@
-async function getApiKey(context) {
+async function authenticate(context) {
     try {
-        // todo
+        // @todo Add authentication
   
         // wait for the next function to finish
         return await context.next();
@@ -10,4 +10,4 @@ async function getApiKey(context) {
     }
 }
   
-export const onRequest = [getApiKey];
+export const onRequest = [authenticate];
