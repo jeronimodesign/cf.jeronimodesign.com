@@ -7,3 +7,12 @@ Test of Cloudflare Pages to replace api.jeronimodesign.com
 
 ### Text
 
+## Cloudflare
+
+### getUserDetails
+
+#### Required environment variables
+```
+API_TOKEN:                  Authorization token to be sent in as a Bearer token
+TOKEN_USER_DETAILS_READ:    Cloudflare token with read access to user details
+```
