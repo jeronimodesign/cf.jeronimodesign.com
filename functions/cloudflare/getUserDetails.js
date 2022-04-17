@@ -36,7 +36,6 @@ export async function onRequest(context) {
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
-            'X-Timestamp':context.data.timestamp,
             'X-ProcessTime': Date.now() - context.data.timestamp
         }
     });
