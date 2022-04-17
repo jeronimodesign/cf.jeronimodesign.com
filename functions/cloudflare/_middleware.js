@@ -3,15 +3,16 @@ async function authenticate(context) {
         // Authentication
         const authHeader = context.request.headers.get('Authorization');
 
-        context.data.authorized = (typeof authHeader === 'string') 
+        if (
+            (typeof authHeader === 'string') 
             && authHeader.startsWith("Bearer ") 
-            && (authHeader.substring(7, authHeader.length) === context.env.API_TOKEN);
+            && (authHeader.substring(7, authHeader.length) === context.env.API_TOKEN)
+        ) {
+            // wait for the next function to finish
+            return await context.next();
+        }
 
-        // @todo Remove
-        context.data.authHeader = authHeader;
-  
-        // wait for the next function to finish
-        return await context.next();
+        throw new Error('Unauthorized');  
     } catch (err) {
         // catch and report and errors when running the next function
         return new Response(`${err.message}\n${err.stack}`, { status: 500 });
