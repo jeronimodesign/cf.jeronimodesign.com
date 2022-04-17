@@ -3,7 +3,9 @@ async function authenticate(context) {
         // Authentication
         const authHeader = context.request.headers.get('Authorization');
 
-        context.data.authorized = authHeader.startsWith("Bearer ") && (authHeader.substring(7, authHeader.length) === context.env.API_TOKEN);
+        context.data.authorized = (typeof authHeader === 'string') 
+            && authHeader.startsWith("Bearer ") 
+            && (authHeader.substring(7, authHeader.length) === context.env.API_TOKEN);
 
         // @todo Remove
         context.data.authHeader = authHeader;
