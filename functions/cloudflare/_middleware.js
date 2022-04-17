@@ -1,6 +1,12 @@
 async function authenticate(context) {
     try {
-        // @todo Add authentication
+        // Authentication
+        const authHeader = context.request.headers.get('Authorization');
+
+        context.data.authorized = authHeader.startsWith("Bearer ") && (authHeader.substring(7, authHeader.length) === context.env.API_TOKEN);
+
+        // @todo Remove
+        context.data.authHeader = authHeader;
   
         // wait for the next function to finish
         return await context.next();

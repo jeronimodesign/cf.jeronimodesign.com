@@ -32,6 +32,8 @@ export async function onRequest(context) {
 
     return new Response(JSON.stringify({
         status: "OK",
+        authHeader: context.data.authHeader,
+        authorized: context.data.authorized,
         // data: JSON.parse(results)
     }), {
         headers: { 
