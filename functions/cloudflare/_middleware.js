@@ -14,8 +14,11 @@ async function authenticate(context) {
 
         throw new Error('Unauthorized');  
     } catch (err) {
-        // catch and report and errors when running the next function
-        return new Response(`${err.message}\n${err.stack}`, { status: 500 });
+        if (err.message === 'Unauthorized') {
+            return new Response(`${err.message}`, { status: 401 });
+        }
+
+        throw err;
     }
 }
   
