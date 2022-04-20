@@ -97,6 +97,8 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
     url.searchParams.append('content', context.data.visitorIpAddress);
     url.searchParams.append('type', type);
 
+    return url;
+
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
