@@ -67,11 +67,12 @@ async function getDNSRecordId(context, zoneId, name) {
 
     const response = await fetch(url.href, init);
 
-    return url;
-    // const results = JSON.parse(await gatherResponse(response));
-    // if (results.success !== true || results.result.length < 1) {
-    //     throw 'cannot get dns record information'
-    // }
+    const results = JSON.parse(await gatherResponse(response));
+    if (results.success !== true || results.result.length < 1) {
+        throw 'cannot get dns record information'
+    }
+
+    return results;
 
     // return results.result[0].id; 
 }
