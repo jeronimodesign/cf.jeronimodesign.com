@@ -35,7 +35,7 @@ async function getZoneInfo(context) {
     url.searchParams.append('type', type);
     url.searchParams.append('name', domain);
     url.searchParams.append('status', 'active');
-    url.searchParams.append('match', any);
+    url.searchParams.append('match', 'any');
 
     response = await fetch(url.href, init);
     result = await gatherResponse(response);
