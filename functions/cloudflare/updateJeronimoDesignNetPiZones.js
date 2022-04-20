@@ -89,7 +89,7 @@ export async function onRequest(context) {
 
     const zoneId = await getZoneId(context);
 
-    const dnsRecordId = await getDNSRecordId(context, zoneId, records[0]);
+    // const dnsRecordId = await getDNSRecordId(context, zoneId, records[0]);
 
 
     
@@ -111,7 +111,7 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
         status: "OK",
         zoneId: zoneId,
-        dnsRecordId: dnsRecordId,
+        // dnsRecordId: dnsRecordId,
         // data: JSON.parse(zoneId)
     }), {
         headers: { 
