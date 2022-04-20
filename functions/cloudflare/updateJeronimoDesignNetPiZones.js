@@ -96,11 +96,12 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
             }
         };
 
-    let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId);
-
-    const response = await fetch(url.href, init);
+    const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
 
     const results = JSON.parse(await gatherResponse(response));
+
+    return results;
+
     if (results.success !== true) {
         throw 'cannot patch dns record information'
     }
