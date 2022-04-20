@@ -35,12 +35,11 @@ async function getZoneId(context) {
     url.searchParams.append('match', 'all');
     url.searchParams.append('name', domain);
     url.searchParams.append('status', 'active');
-    url.searchParams.append('type', type);
 
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
-    if (results.success !== true) {
+    if (results.success !== true || results.result.length < 1) {
         throw 'cannot get zone information'
     }
 
@@ -69,11 +68,11 @@ async function getDNSRecordId(context, zoneId, name) {
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
-    if (results.success !== true) {
+    if (results.success !== true || results.result.length < 1) {
         throw 'cannot get dns record information'
     }
 
-    return results; 
+    return results.result[0].id; 
 }
 
 export async function onRequest(context) {
@@ -89,7 +88,12 @@ export async function onRequest(context) {
 
     const zoneId = await getZoneId(context);
 
-    const dnsRecordId = await getDNSRecordId(context, zoneId, records[0]);
+    let dnsRecordIds = [],
+        data = [];
+
+    for (let i = 0; i < records.length; i++) {
+        dnsRecordIds.push(await getDNSRecordId(context, zoneId, records[i]));
+    }
 
 
     
@@ -111,8 +115,8 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
         status: "OK",
         zoneId: zoneId,
-        dnsRecordId: dnsRecordId,
-        // data: JSON.parse(zoneId)
+        dnsRecordIds: dnsRecordIds,
+        data: data,
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
