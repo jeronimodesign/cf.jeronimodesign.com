@@ -87,7 +87,7 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
     const init = {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json;charset=UTF-8',
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
             },
             data: {
