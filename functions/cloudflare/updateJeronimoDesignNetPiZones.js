@@ -86,13 +86,12 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
 
     const data =  {
         'content': context.data.visitorIpAddress,
-        'type': type
     };
 
     const init = {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
             },
             data: JSON.stringify(data),
@@ -118,8 +117,6 @@ export async function onRequest(context) {
 
     const records = [
         'pi',
-        'pi3',
-        'bitwarden',
     ];
 
     const zoneId = await getZoneId(context);
