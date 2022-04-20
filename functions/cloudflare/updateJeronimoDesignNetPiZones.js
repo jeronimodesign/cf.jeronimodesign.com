@@ -102,6 +102,8 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
 
     const results = JSON.parse(await gatherResponse(response));
 
+    return [init, response, results];
+
     if (results.success !== true) {
         throw 'cannot patch dns record information'
     }
