@@ -60,22 +60,20 @@ async function getDNSRecordId(context, zoneId, name) {
                 }
             }
 
-    let url = new URL(zoneBaseUrl + '/' + zoneId + 'dns_records');
+    let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records');
 
     url.searchParams.append('match', 'any');
     url.searchParams.append('name', name + '.' + domain);
     url.searchParams.append('type', type);
 
-    return url;
+    const response = await fetch(url.href, init);
 
-    // const response = await fetch(url.href, init);
+    const results = JSON.parse(await gatherResponse(response));
+    if (results.success !== true) {
+        throw 'cannot get dns record information'
+    }
 
-    // const results = JSON.parse(await gatherResponse(response));
-    // if (results.success !== true) {
-    //     throw 'cannot get dns record information'
-    // }
-
-    // return results; 
+    return results; 
 }
 
 export async function onRequest(context) {
