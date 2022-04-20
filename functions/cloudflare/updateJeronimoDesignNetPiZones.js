@@ -68,7 +68,7 @@ async function getDNSRecordId(context, zoneId, name) {
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
-    if (results.success !== true || results.dnsRecordIds.result.length < 1) {
+    if (results.success !== true) {
         throw 'cannot get dns record information'
     }
 
