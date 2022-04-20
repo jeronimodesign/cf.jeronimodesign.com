@@ -84,23 +84,23 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
         throw 'no valid token given';
     }
 
+    const data =  {
+        'content': context.data.visitorIpAddress,
+        'type': type
+    };
+
     const init = {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
             },
-            data: {
-                'content': context.data.visitorIpAddress,
-                'type': type
-            }
+            data: JSON.stringify(data),
         };
 
     const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
 
     const results = JSON.parse(await gatherResponse(response));
-
-    return [init, response, results];
 
     if (results.success !== true) {
         throw 'cannot patch dns record information'
