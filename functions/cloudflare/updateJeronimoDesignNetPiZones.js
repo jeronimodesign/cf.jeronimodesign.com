@@ -87,17 +87,16 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
     const init = {
             method: 'PATCH',
             headers: {
-                    'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
-                }
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
+            },
+            data: {
+                'content': context.data.visitorIpAddress,
+                'type': type
             }
+        };
 
     let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId);
-
-    url.searchParams.append('content', context.data.visitorIpAddress);
-    url.searchParams.append('type', type);
-
-    return url;
 
     const response = await fetch(url.href, init);
 
