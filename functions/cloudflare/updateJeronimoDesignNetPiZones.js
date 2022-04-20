@@ -62,7 +62,7 @@ async function getDNSRecordId(context, zoneId, name) {
 
     let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records');
 
-    url.searchParams.append('match', 'any');
+    url.searchParams.append('match', 'all');
     url.searchParams.append('name', name);
     url.searchParams.append('type', type);
 
