@@ -72,9 +72,11 @@ async function getDNSRecordId(context, zoneId, name) {
         throw 'cannot get dns record information'
     }
 
-    return results.result[0];
+    if (results.result.length < 1) {
+        return null;
+    }
 
-    // return results.dnsRecordIds.result[0].id; 
+    return results.result[0].id;
 }
 
 export async function onRequest(context) {
@@ -94,7 +96,10 @@ export async function onRequest(context) {
         data = [];
 
     for (let i = 0; i < records.length; i++) {
-        dnsRecordIds.push(await getDNSRecordId(context, zoneId, records[i]));
+        let dnsRecordId = await getDNSRecordId(context, zoneId, records[i]);
+        if (dnsRecordId) {
+            dnsRecordIds.push(dnsRecordId);
+        }
     }
 
 
