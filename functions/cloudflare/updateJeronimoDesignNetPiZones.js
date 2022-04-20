@@ -79,6 +79,34 @@ async function getDNSRecordId(context, zoneId, name) {
     return results.result[0].id;
 }
 
+async function updateDNSRecord(context, zoneId, dnsRecordId) {
+    if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
+        throw 'no valid token given';
+    }
+
+    const init = {
+            method: 'PATCH',
+            headers: {
+                    'Content-Type': 'application/json;charset=UTF-8',
+                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
+                }
+            }
+
+    let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId);
+
+    url.searchParams.append('content', context.data.visitorIpAddress);
+    url.searchParams.append('type', type);
+
+    const response = await fetch(url.href, init);
+
+    const results = JSON.parse(await gatherResponse(response));
+    if (results.success !== true) {
+        throw 'cannot patch dns record information'
+    }
+
+    return results.result;
+}
+
 export async function onRequest(context) {
     if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
         throw 'no valid token given';
@@ -96,28 +124,15 @@ export async function onRequest(context) {
         data = [];
 
     for (let i = 0; i < records.length; i++) {
-        let dnsRecordId = await getDNSRecordId(context, zoneId, records[i]);
-        if (dnsRecordId) {
-            dnsRecordIds.push(dnsRecordId);
+        const dnsRecordId = await getDNSRecordId(context, zoneId, records[i]);
+        if (!dnsRecordId) {
+            continue;
         }
+
+        dnsRecordIds.push(dnsRecordId);
+
+        data.push(await updateDNSRecord(context, zoneId, dnsRecordId));
     }
-
-
-    
-    // const url = 'https://api.cloudflare.com/client/v4/zones',
-    //     init = {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json;charset=UTF-8',
-    //             'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
-    //         },
-    //         body: {
-    //             type: 'A',
-    //             conntent: context.data.visitorIpAddress,
-    //         }
-    //     },
-    //     response = await fetch(url, init),
-    //     results = await gatherResponse(response);
 
     return new Response(JSON.stringify({
         status: "OK",
