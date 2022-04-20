@@ -32,7 +32,7 @@ async function getZoneId(context) {
 
     let url = new URL(zoneBaseUrl);
 
-    url.searchParams.append('match', 'any');
+    url.searchParams.append('match', 'all');
     url.searchParams.append('name', domain);
     url.searchParams.append('status', 'active');
     url.searchParams.append('type', type);
@@ -63,7 +63,7 @@ async function getDNSRecordId(context, zoneId, name) {
     let url = new URL(zoneBaseUrl + '/' + zoneId + '/dns_records');
 
     url.searchParams.append('match', 'all');
-    url.searchParams.append('name', name);
+    url.searchParams.append('name', name + '.' + domain);
     url.searchParams.append('type', type);
 
     const response = await fetch(url.href, init);
