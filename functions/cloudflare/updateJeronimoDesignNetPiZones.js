@@ -17,7 +17,7 @@ async function gatherResponse(response) {
     }
 }
 
-async function getZoneInfo() {
+async function getZoneInfo(context) {
     if (!context.env.TOKEN_ZONE_ZONE_JERONIMODESIGN_NET_READ.length) {
         throw 'no valid token given';
     }
@@ -46,7 +46,7 @@ export async function onRequest(context) {
         throw 'no valid token given';
     }
 
-    const results = await getZoneInfo();
+    const results = await getZoneInfo(context);
     
     // const url = 'https://api.cloudflare.com/client/v4/zones',
     //     init = {
