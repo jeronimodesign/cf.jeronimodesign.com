@@ -56,7 +56,7 @@ async function getDNSRecordId(context, zoneId, name) {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_ZONE_JERONIMODESIGN_NET_READ
+                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
                 }
             }
 
