@@ -113,7 +113,7 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
         status: "OK",
         zoneId: zoneId,
-        // dnsRecordId: dnsRecordId,
+        dnsRecordId: dnsRecordId,
         // data: JSON.parse(zoneId)
     }), {
         headers: { 
