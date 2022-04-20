@@ -7,7 +7,6 @@ async function errorHandler(context) {
     return await context.next();
   } catch (err) {
     // catch and report and errors when running the next function
-    // return new Response(`${err.message}\n${err.stack}`, { status: 500 });
     return new Response(JSON.stringify(err), { status: 500 });
   }
 }
