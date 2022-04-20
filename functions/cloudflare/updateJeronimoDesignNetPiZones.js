@@ -72,7 +72,7 @@ async function getDNSRecordId(context, zoneId, name) {
         throw 'cannot get dns record information'
     }
 
-    return results;
+    return results.result;
 
     // return results.dnsRecordIds.result[0].id; 
 }
