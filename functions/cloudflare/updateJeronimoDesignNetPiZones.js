@@ -37,8 +37,9 @@ async function getZoneInfo(context) {
     url.searchParams.append('status', 'active');
     url.searchParams.append('match', 'any');
 
-    response = await fetch(url.href, init);
-    result = await gatherResponse(response);
+    const response = await fetch(url.href, init);
+
+    return await gatherResponse(response);
 }
 
 export async function onRequest(context) {
