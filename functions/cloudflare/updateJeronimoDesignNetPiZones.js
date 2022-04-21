@@ -1,4 +1,4 @@
-import { gatherResponse } from './../util.js';
+import { gatherResponse } from '../util.js';
 import { getDNSRecordId } from './cloudflare.js';
 import { getZoneId } from './cloudflare.js';
 
