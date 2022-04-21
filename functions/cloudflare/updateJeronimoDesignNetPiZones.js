@@ -49,22 +49,23 @@ export async function onRequest(context) {
     let dnsRecordIds = [],
         data = [];
 
-    // for (let i = 0; i < records.length; i++) {
-    //     const dnsRecordId = await getDNSRecordId(context, zoneId, records[i] + '.' + domain, type);
-    //     if (!dnsRecordId) {
-    //         continue;
-    //     }
+    for (let i = 0; i < records.length; i++) {
+        const dnsRecordId = await getDNSRecordId(context, zoneId, records[i] + '.' + domain, type);
+        if (!dnsRecordId) {
+            continue;
+        }
 
-    //     dnsRecordIds.push(dnsRecordId);
+        dnsRecordIds.push(dnsRecordId);
 
-    //     // data.push(await updateDNSRecord(context, zoneId, dnsRecordId));
-    // }
+        // data.push(await updateDNSRecord(context, zoneId, dnsRecordId));
+    }
 
     return new Response(JSON.stringify({
         status: "OK",
         zoneId: zoneId,
         dnsRecordIds: dnsRecordIds,
         data: data,
+        context: context,
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
