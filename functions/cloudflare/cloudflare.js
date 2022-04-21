@@ -60,6 +60,36 @@ export async function getDNSRecord(context, zoneId, name, type) {
     return results;
 }
 
+export async function updateDNSRecord(context, zoneId, dnsRecordId) {
+    if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
+        throw 'no valid token given';
+    }
+
+    const data =  {
+        'content': context.data.visitorIpAddress,
+    };
+
+    const init = {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
+            },
+            data: JSON.stringify(data),
+        };
+
+    const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
+
+    const results = JSON.parse(await gatherResponse(response));
+
+    return [init, response, results];
+
+    if (results.success !== true) {
+        throw 'cannot patch dns record information'
+    }
+
+    return results.result;
+}
 
 export async function getZoneId(context, domain) {
     const zone = await getZone(context, domain);
