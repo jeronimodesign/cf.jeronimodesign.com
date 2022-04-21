@@ -1,6 +1,24 @@
 import { gatherResponse } from "../util.js";
 
-const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones';
+const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
+    userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
+
+export async function getUserDetails(context) {
+    if (!context.env.TOKEN_USER_DETAILS_READ.length) {
+        throw 'no valid token given';
+    }
+    
+    const init = {
+            headers: {
+                'Content-Type': 'application/json;charset=UTF-8',
+                'Authorization': 'Bearer ' + context.env.TOKEN_USER_DETAILS_READ
+            },
+        },
+        response = await fetch(userBaseUrl, init),
+        results = await gatherResponse(response);
+
+    return JSON.parse(results);
+}
 
 export async function getZone(context, domain) {
     if (!context.env.TOKEN_ZONE_ZONE_JERONIMODESIGN_NET_READ.length) {

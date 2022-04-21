@@ -1,6 +1,9 @@
+import { getUserDetails } from './cloudflare.js';
 import { gatherResponse } from './../util.js';
 
 export async function onRequest(context) {
+    const userDetails = getUserDetails(context);
+
     if (!context.env.TOKEN_USER_DETAILS_READ.length) {
         throw 'no valid token given';
     }
@@ -17,7 +20,8 @@ export async function onRequest(context) {
 
     return new Response(JSON.stringify({
         status: "OK",
-        data: JSON.parse(results)
+        data: JSON.parse(results),
+        userDetails: userDetails,
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
