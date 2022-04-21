@@ -34,9 +34,8 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
 }
 
 export async function onRequest(context) {
-    if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
-        throw 'no valid token given';
-    }
+    const { searchParams } = new URL(context.request.url);
+
 
     const records = [
             'pi',
@@ -68,7 +67,7 @@ export async function onRequest(context) {
         dnsRecordIds: dnsRecordIds,
         data: data,
         context: context,
-        name: context.request.params.get('name'),
+        name: searchParams.get('name'),
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
