@@ -50,7 +50,9 @@ export async function onRequest(context) {
         data = [];
 
     for (let i = 0; i < records.length; i++) {
-        const dnsRecordId = await getDNSRecordId(context, zoneId, records[i] + '.' + domain, type);
+        const name = records[i] + '.' + domain;
+
+        const dnsRecordId = await getDNSRecordId(context, zoneId, name, type);
         if (!dnsRecordId) {
             continue;
         }
@@ -66,6 +68,7 @@ export async function onRequest(context) {
         dnsRecordIds: dnsRecordIds,
         data: data,
         context: context,
+        name: context.request.params.get('name'),
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
