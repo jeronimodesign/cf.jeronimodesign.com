@@ -36,30 +36,26 @@ async function updateDNSRecord(context, zoneId, dnsRecordId) {
 export async function onRequest(context) {
     const { searchParams } = new URL(context.request.url);
 
+    const name = searchParams.get('name');
+    if (!name) {
+        throw 'no name parameter given';
+    }
 
-    const records = [
-            'pi',
-        ],
-        domain = 'jeronimodesign.net',
-        type = 'A';
+    const type = searchParams.get('type');
+    if (!name) {
+        throw 'no type parameter given';
+    }
 
-    const zoneId = await getZoneId(context, domain);
+    const zoneId = await getZoneId(context, name);
 
     let dnsRecordIds = [],
         data = [];
 
-    for (let i = 0; i < records.length; i++) {
-        const name = records[i] + '.' + domain;
+    const dnsRecordId = await getDNSRecordId(context, zoneId, name, type);
 
-        const dnsRecordId = await getDNSRecordId(context, zoneId, name, type);
-        if (!dnsRecordId) {
-            continue;
-        }
+    dnsRecordIds.push(dnsRecordId);
 
-        dnsRecordIds.push(dnsRecordId);
-
-        // data.push(await updateDNSRecord(context, zoneId, dnsRecordId));
-    }
+    // data.push(await updateDNSRecord(context, zoneId, dnsRecordId));
 
     return new Response(JSON.stringify({
         status: "OK",
