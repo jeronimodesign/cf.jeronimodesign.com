@@ -2,10 +2,6 @@ import { gatherResponse } from './../util.js';
 import { getDNSRecordId } from './cloudflare.js';
 import { getZoneId } from './cloudflare.js';
 
-const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
-    domain = 'jeronimodesign.net',
-    type = 'A';
-
 async function updateDNSRecord(context, zoneId, dnsRecordId) {
     if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
         throw 'no valid token given';
@@ -45,7 +41,8 @@ export async function onRequest(context) {
     const records = [
             'pi',
         ],
-        domain = 'jeronimodesign.net';
+        domain = 'jeronimodesign.net',
+        type = 'A';
 
     const zoneId = await getZoneId(context, domain);
 
@@ -53,7 +50,7 @@ export async function onRequest(context) {
         data = [];
 
     for (let i = 0; i < records.length; i++) {
-        const dnsRecordId = await getDNSRecordId(context, zoneId, records[i] + '.' + domain);
+        const dnsRecordId = await getDNSRecordId(context, zoneId, records[i] + '.' + domain, type);
         if (!dnsRecordId) {
             continue;
         }

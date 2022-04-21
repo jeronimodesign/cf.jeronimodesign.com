@@ -29,7 +29,7 @@ export async function getZone(context, domain) {
     return results;
 }
 
-export async function getDNSRecord(context, zoneId, name) {
+export async function getDNSRecord(context, zoneId, name, type) {
     if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
         throw 'no valid token given';
     }
@@ -69,8 +69,8 @@ export async function getZoneId(context, domain) {
     return zone.result[0].id;
 }
 
-export async function getDNSRecordId(context, zoneId, domain) {
-    const dnsRecord = getDNSRecord(context, zoneId, domain);
+export async function getDNSRecordId(context, zoneId, name, type) {
+    const dnsRecord = getDNSRecord(context, zoneId, name, type);
 
     return dnsRecord.result[0].id;
 }
