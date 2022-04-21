@@ -17,7 +17,6 @@ export async function getUserDetails(context) {
         response = await fetch(userBaseUrl, init),
         results = await gatherResponse(response);
 
-    return results;
     return JSON.parse(results);
 }
 

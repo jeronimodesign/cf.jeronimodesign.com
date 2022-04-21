@@ -2,7 +2,7 @@ import { getUserDetails } from './cloudflare.js';
 import { gatherResponse } from './../util.js';
 
 export async function onRequest(context) {
-    const userDetails = getUserDetails(context);
+    const userDetails = await getUserDetails(context);
 
     if (!context.env.TOKEN_USER_DETAILS_READ.length) {
         throw 'no valid token given';
