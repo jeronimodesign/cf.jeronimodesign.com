@@ -1,3 +1,5 @@
+import { gatherResponse } from "../util.js";
+
 const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones';
 
 export async function getZone(context, domain) {
