@@ -24,7 +24,7 @@ export async function getZone(context, domain) {
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
-    if (results.success !== true || results.result.length < 1) {
+    if (results.success !== true || results.result.length !== 1) {
         throw 'cannot get zone information'
     }
 
@@ -53,7 +53,7 @@ export async function getDNSRecord(context, zoneId, name, type) {
     const response = await fetch(url.href, init);
 
     const results = JSON.parse(await gatherResponse(response));
-    if (results.success !== true || results.result.length < 1) {
+    if (results.success !== true || results.result.length !== 1) {
         throw 'cannot get dns record information'
     }
 

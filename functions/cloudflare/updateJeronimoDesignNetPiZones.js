@@ -41,12 +41,18 @@ export async function onRequest(context) {
         throw 'no name parameter given';
     }
 
+    const parts = name.split('.');
+    let domain = name;
+    if (parts.length > 2) {
+        domain = domain.replace(/^[^.]+\./g, '');
+    }
+
     const type = searchParams.get('type');
     if (!name) {
         throw 'no type parameter given';
     }
 
-    const zoneId = await getZoneId(context, name);
+    const zoneId = await getZoneId(context, domain);
 
     let dnsRecordIds = [],
         data = [];
@@ -62,8 +68,8 @@ export async function onRequest(context) {
         zoneId: zoneId,
         dnsRecordIds: dnsRecordIds,
         data: data,
-        context: context,
         name: searchParams.get('name'),
+        domain: domain,
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
