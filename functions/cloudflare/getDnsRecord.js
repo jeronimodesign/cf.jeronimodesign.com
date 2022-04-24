@@ -1,6 +1,5 @@
 import { getDNSRecordId } from './cloudflare.js';
 import { getZoneId } from './cloudflare.js';
-import { updateDNSRecord } from './cloudflare.js';
 
 export async function onRequest(context) {
     const { searchParams } = new URL(context.request.url);
@@ -23,9 +22,7 @@ export async function onRequest(context) {
 
     const zoneId = await getZoneId(context, domain);
 
-    const dnsRecordId = await getDNSRecordId(context, zoneId, name, type);
-
-    const data = await updateDNSRecord(context, zoneId, dnsRecordId);
+    const data = await getDNSRecordId(context, zoneId, name, type);
 
     return new Response(JSON.stringify({
         status: "OK",
