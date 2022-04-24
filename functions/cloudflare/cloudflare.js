@@ -84,16 +84,16 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
     }
 
     const data =  {
-        'content': context.data.visitorIpAddress,
+        content: context.data.visitorIpAddress,
     };
 
     const init = {
             method: 'PATCH',
-            data: JSON.stringify(data),
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
-            }
+            },
+            data: JSON.stringify(data),
         };
 
     const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
