@@ -83,9 +83,10 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
         throw 'no valid token given';
     }
 
-    const data =  {
-        content: context.data.visitorIpAddress,
-    };
+    // const data =  JSON.stringify({
+    //     content: context.data.visitorIpAddress,
+    // });
+    const data = '{"content": "' + context.data.visitorIpAddress + '"}';
 
     const init = {
             method: 'PATCH',
@@ -93,7 +94,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
             },
-            data: JSON.stringify(data),
+            data: data,
         };
 
     const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
