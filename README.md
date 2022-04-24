@@ -11,6 +11,12 @@ Test of Cloudflare Pages to replace api.jeronimodesign.com
 
 ### getUserDetails
 
+### getZone
+
+### getDnsRecord
+
+### patchDnsRecord
+
 #### Required environment variables
 ```
 API_TOKEN:                          Authorization token to be sent in as a Bearer token
