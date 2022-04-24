@@ -1,4 +1,4 @@
-import { getDNSRecordId } from './cloudflare.js';
+import { getDNSRecord } from './cloudflare.js';
 import { getZoneId } from './cloudflare.js';
 
 export async function onRequest(context) {
@@ -22,7 +22,7 @@ export async function onRequest(context) {
 
     const zoneId = await getZoneId(context, domain);
 
-    const data = await getDNSRecordId(context, zoneId, name, type);
+    const data = await getDNSRecord(context, zoneId, name, type);
 
     return new Response(JSON.stringify({
         status: "OK",

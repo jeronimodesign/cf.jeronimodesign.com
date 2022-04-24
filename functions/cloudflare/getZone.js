@@ -4,7 +4,7 @@ export async function onRequest(context) {
     const { searchParams } = new URL(context.request.url);
 
     const domain = searchParams.get('domain');
-    if (!doamin) {
+    if (!domain) {
         throw 'no name parameter given';
     }
 
