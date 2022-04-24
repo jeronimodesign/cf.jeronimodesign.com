@@ -31,7 +31,7 @@ export async function getUserDetails(context) {
 }
 
 export async function getZone(context, domain) {
-    if (!context.env.TOKEN_ZONE_ZONE_JERONIMODESIGN_NET_READ.length) {
+    if (!context.env.TOKEN_ZONE_READ.length) {
         throw 'no valid token given';
     }
 
@@ -39,7 +39,7 @@ export async function getZone(context, domain) {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_ZONE_JERONIMODESIGN_NET_READ
+                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_READ
                 }
             }
 
@@ -60,7 +60,7 @@ export async function getZone(context, domain) {
 }
 
 export async function getDNSRecord(context, zoneId, name, type) {
-    if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
+    if (!context.env.TOKEN_ZONE_READ.length) {
         throw 'no valid token given';
     }
 
@@ -68,7 +68,7 @@ export async function getDNSRecord(context, zoneId, name, type) {
             method: 'GET',
             headers: {
                     'Content-Type': 'application/json;charset=UTF-8',
-                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
+                    'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_READ
                 }
             }
 
@@ -89,7 +89,7 @@ export async function getDNSRecord(context, zoneId, name, type) {
 }
 
 export async function updateDNSRecord(context, zoneId, dnsRecordId) {
-    if (!context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT.length) {
+    if (!context.env.TOKEN_ZONE_WRITE.length) {
         throw 'no valid token given';
     }
 
@@ -101,7 +101,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8',
-                'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_JERONIMODESIGN_NET_EDIT
+                'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_WRITE
             },
             data: data,
         };
