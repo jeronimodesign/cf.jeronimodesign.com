@@ -3,6 +3,16 @@ import { gatherResponse } from "../util.js";
 const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
     userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
 
+async function buildErrorMessage(title, errors) {
+    msg = title + '\n';
+
+    for (let i = 0; i < errors.length; i++) {
+        msg += ' - ' + errors[i].code + ': ' + errors[i].message + '\n';
+    }
+
+    return msg;
+}
+
 export async function getUserDetails(context) {
     if (!context.env.TOKEN_USER_DETAILS_READ.length) {
         throw 'no valid token given';
@@ -43,7 +53,7 @@ export async function getZone(context, domain) {
 
     const results = JSON.parse(await gatherResponse(response));
     if (results.success !== true || results.result.length !== 1) {
-        throw 'cannot get zone information'
+        throw await buildErrorMessage('cannot get zone information', results.errors);
     }
 
     return results;
@@ -72,7 +82,7 @@ export async function getDNSRecord(context, zoneId, name, type) {
 
     const results = JSON.parse(await gatherResponse(response));
     if (results.success !== true || results.result.length !== 1) {
-        throw 'cannot get dns record information'
+        throw await buildErrorMessage('cannot get dns record information', results.errors);
     }
 
     return results;
@@ -101,7 +111,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
     const results = JSON.parse(await gatherResponse(response));
 
     if (results.success !== true) {
-        throw 'cannot patch dns record information: ' + results.errors[0].message + '(' + results.errors[0].code + ')';
+        throw await buildErrorMessage('cannot patch dns record information', results.errors);
     }
 
     return results.result;
