@@ -4,7 +4,7 @@ const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
     userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
 
 async function buildErrorMessage(title, errors) {
-    msg = title + '\n';
+    let msg = title + '\n';
 
     for (let i = 0; i < errors.length; i++) {
         msg += ' - ' + errors[i].code + ': ' + errors[i].message + '\n';
