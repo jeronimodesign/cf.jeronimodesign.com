@@ -60,6 +60,9 @@ export async function getZone(context, domain) {
         throw await buildErrorMessage('cannot get zone information', results.errors);
     }
 
+    // Only one record
+    results.result = results.result[0];
+
     return results;
 }
 
@@ -88,6 +91,9 @@ export async function getDNSRecord(context, zoneId, name, type) {
     if (results.success !== true || results.result.length !== 1) {
         throw await buildErrorMessage('cannot get dns record information', results.errors);
     }
+
+    // Only one record
+    results.result = results.result[0];
 
     return results;
 }
