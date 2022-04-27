@@ -4,10 +4,10 @@ const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
     userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
 
 async function buildErrorMessage(title, errors) {
-    let msg = title + "\n";
+    let msg = `${title}\n`;
 
     for (let i = 0; i < errors.length; i++) {
-        msg += ' - ' + errors[i].code + ': ' + errors[i].message + "\n";
+        msg += `' - ${errors[i].code}: ${errors[i].message}\n`;
     }
 
     return msg;
@@ -26,6 +26,10 @@ export async function getUserDetails(context) {
         },
         response = await fetch(userBaseUrl, init),
         results = await gatherResponse(response);
+
+    if (results.success !== true ) {
+        throw await buildErrorMessage('cannot get user details', results.errors);
+    }
 
     return JSON.parse(results);
 }
@@ -93,9 +97,9 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
         throw 'no valid token given';
     }
 
-    const data =  JSON.stringify({
+    const data =  {
         content: context.data.visitorIpAddress,
-    });
+    };
 
     const init = {
             method: 'PATCH',
@@ -103,7 +107,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_WRITE
             },
-            data: data,
+            data: JSON.stringify(data),
         };
 
     const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
