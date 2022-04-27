@@ -25,13 +25,13 @@ export async function getUserDetails(context) {
             },
         },
         response = await fetch(userBaseUrl, init),
-        results = await gatherResponse(response);
+        results = JSON.parse(await gatherResponse(response));
 
-    if (results.success !== true ) {
+    if (results.success !== true) {
         throw await buildErrorMessage('cannot get user details', results.errors);
     }
 
-    return JSON.parse(results);
+    return results;
 }
 
 export async function getZone(context, domain) {
