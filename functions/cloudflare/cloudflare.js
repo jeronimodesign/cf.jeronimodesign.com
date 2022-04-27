@@ -7,7 +7,7 @@ async function buildErrorMessage(title, errors) {
     let msg = `${title}\n`;
 
     for (let i = 0; i < errors.length; i++) {
-        msg += `' - ${errors[i].code}: ${errors[i].message}\n`;
+        msg += ` - ${errors[i].code}: ${errors[i].message}\n`;
     }
 
     return msg;
