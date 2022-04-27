@@ -130,11 +130,11 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
 export async function getZoneId(context, domain) {
     const zone = await getZone(context, domain);
 
-    return zone.result[0].id;
+    return zone.result.id;
 }
 
 export async function getDNSRecordId(context, zoneId, name, type) {
     const dnsRecord = await getDNSRecord(context, zoneId, name, type);
 
-    return dnsRecord.result[0].id;
+    return dnsRecord.result.id;
 }
