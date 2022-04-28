@@ -3,14 +3,14 @@ import { gatherResponse } from "../util.js";
 const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
     userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
 
-async function buildErrorMessage(title, errors) {
+function cloudflareError(title, errors) {
     let msg = `${title}\n`;
 
     for (let i = 0; i < errors.length; i++) {
-        msg = `${msg} - ${errors[i].code}: ${errors[i].message}\n`;
+        msg += ` - ${errors[i].code}: ${errors[i].message}\n`;
     }
 
-    return msg;
+    return new Error(msg);
 }
 
 export async function getUserDetails(context) {
@@ -28,7 +28,7 @@ export async function getUserDetails(context) {
         results = JSON.parse(await gatherResponse(response));
 
     if (results.success !== true) {
-        throw await buildErrorMessage('cannot get user details', results.errors);
+        throw cloudflareError('cannot get user details', results.errors);
     }
 
     return results;
@@ -57,7 +57,7 @@ export async function getZone(context, domain) {
 
     const results = JSON.parse(await gatherResponse(response));
     if (results.success !== true || results.result.length !== 1) {
-        throw await buildErrorMessage('cannot get zone information', results.errors);
+        throw cloudflareError('cannot get zone information', results.errors);
     }
 
     // Only one record
@@ -89,7 +89,7 @@ export async function getDNSRecord(context, zoneId, name, type) {
 
     const results = JSON.parse(await gatherResponse(response));
     if (results.success !== true || results.result.length !== 1) {
-        throw await buildErrorMessage('cannot get dns record information', results.errors);
+        throw cloudflareError('cannot get dns record information', results.errors);
     }
 
     // Only one record
@@ -121,7 +121,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
     const results = JSON.parse(await gatherResponse(response));
 
     if (results.success !== true) {
-        throw await buildErrorMessage('cannot patch dns record information', results.errors);
+        throw cloudflareError('cannot patch dns record information', results.errors);
     }
 
     return results.result;
