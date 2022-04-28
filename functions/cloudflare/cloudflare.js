@@ -10,7 +10,7 @@ function cloudflareError(title, errors) {
         msg += ` - ${errors[i].code}: ${errors[i].message}\n`;
     }
 
-    return new Error(msg);
+    this.message = msg;
 }
 
 export async function getUserDetails(context) {
