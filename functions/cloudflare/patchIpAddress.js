@@ -1,5 +1,5 @@
-import { getDNSRecordId } from './cloudflare.js';
-import { getZoneId } from './cloudflare.js';
+import { getDNSRecord } from './cloudflare.js';
+import { getZone } from './cloudflare.js';
 import { updateDNSRecord } from './cloudflare.js';
 
 export async function onRequest(context) {
@@ -21,11 +21,11 @@ export async function onRequest(context) {
         throw 'no type parameter given';
     }
 
-    const zoneId = await getZoneId(context, domain);
+    const zone = await getZone(context, domain);
 
-    const dnsRecordId = await getDNSRecordId(context, zoneId, name, type);
+    const dnsRecord = await getDNSRecord(context, zone.result.id, name, type);
 
-    const data = await updateDNSRecord(context, zoneId, dnsRecordId);
+    const data = await updateDNSRecord(context, zone.result.id, dnsRecord.result.id);
 
     return new Response(JSON.stringify({
         status: "OK",
