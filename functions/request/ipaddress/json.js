@@ -1,14 +1,15 @@
 export async function onRequest(context) {
+    let data = {
+        ipAddress: context.data.visitorIpAddress,
+    };
+
+    for (let key of context.request.headers.keys()) {
+        data[key] = context.request.headers.get(key);
+    }
+
     return new Response(JSON.stringify({
         status: "OK",
-        data: {
-            ipAddress: context.data.visitorIpAddress,
-            cfConnectingIp: context.request.headers.get('CF-Connecting-IP'),
-            xForwardedFor: context.request.headers.get('X-Forwarded-For'),
-            cfPseudoIpv4: context.request.headers.get('CF-Pseudo-IPv4'),
-            keys: context.request.headers.keys(),
-            values: context.request.headers.values()
-        }
+        data: data
     }), {
         headers: { 
             'content-type': 'application/json;charset=UTF-8',
