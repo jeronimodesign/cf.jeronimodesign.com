@@ -3,9 +3,9 @@ export async function onRequest(context) {
         ipAddress: context.data.visitorIpAddress,
     };
 
-    for (let key of context.request.headers.keys()) {
-        data[key] = context.request.headers.get(key);
-    }
+    // for (let key of context.request.headers.keys()) {
+    //     data[key] = context.request.headers.get(key);
+    // }
 
     return new Response(JSON.stringify({
         status: "OK",
