@@ -3,7 +3,7 @@ export async function onRequest(context) {
         status: "OK",
         data: {
             ipAddress: context.data.visitorIpAddress,
-            responseHeaders: context.request.getAllResponseHeaders()
+            context: context
         }
     }), {
         headers: { 
