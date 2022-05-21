@@ -2,7 +2,11 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
         status: "OK",
         data: {
-            ipAddress: context.data.visitorIpAddress
+            ipAddress: context.data.visitorIpAddress,
+            cfConnectingIp: context.request.headers.get('CF-Connecting-IP'),
+            xForwardedFor: context.request.headers.get('X-Forwarded-For'),
+            cfPseudoIpv4: context.request.headers.get('CF-Pseudo-IPv4'),
+            all: context.request.headers.getAll()
         }
     }), {
         headers: { 
