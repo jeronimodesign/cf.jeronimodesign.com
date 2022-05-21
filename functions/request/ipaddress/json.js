@@ -6,7 +6,8 @@ export async function onRequest(context) {
             cfConnectingIp: context.request.headers.get('CF-Connecting-IP'),
             xForwardedFor: context.request.headers.get('X-Forwarded-For'),
             cfPseudoIpv4: context.request.headers.get('CF-Pseudo-IPv4'),
-            all: context.request.headers.getAll()
+            keys: context.request.headers.keys(),
+            values: context.request.headers.values()
         }
     }), {
         headers: { 
