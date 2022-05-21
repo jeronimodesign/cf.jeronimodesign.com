@@ -2,8 +2,7 @@ export async function onRequest(context) {
     return new Response(JSON.stringify({
         status: "OK",
         data: {
-            ipAddress: context.data.visitorIpAddress,
-            context: context
+            ipAddress: context.data.visitorIpAddress
         }
     }), {
         headers: { 
