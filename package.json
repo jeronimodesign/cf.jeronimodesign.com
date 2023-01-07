@@ -1,5 +1,23 @@
 {
   "dependencies": {
     "faunadb": "^4.7.1"
-  }
+  },
+  "name": "api.jeronimodesign.com",
+  "description": "Test of Cloudflare Pages to replace api.jeronimodesign.com",
+  "version": "1.0.0",
+  "main": "functions/index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeronimodesign/cf.jeronimodesign.com.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeronimodesign/cf.jeronimodesign.com/issues"
+  },
+  "homepage": "https://github.com/jeronimodesign/cf.jeronimodesign.com#readme"
 }
