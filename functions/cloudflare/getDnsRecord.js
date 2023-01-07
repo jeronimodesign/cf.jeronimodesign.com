@@ -1,7 +1,6 @@
 import { getDNSRecord } from './cloudflare.js';
 import { getType } from './cloudflare.js';
 import { getZone } from './cloudflare.js';
-import fauna from 'faunadb';
 
 export async function onRequest(context) {
     const { searchParams } = new URL(context.request.url);
