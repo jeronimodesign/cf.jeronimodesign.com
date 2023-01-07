@@ -1,12 +1,8 @@
 {
-  "dependencies": {
-    "faunadb": "^4.7.1"
-  },
-  "name": "cf.jeronimodesign.com",
-  "description": "Test of Cloudflare Pages to replace symfony project",
+  "name": "api.jeronimodesign.comn",
   "version": "1.0.0",
-  "main": "functions/index.js",
-  "devDependencies": {},
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/jeronimodesign/cf.jeronimodesign.com/issues"
   },
-  "homepage": "https://github.com/jeronimodesign/cf.jeronimodesign.com#readme"
+  "homepage": "https://github.com/jeronimodesign/cf.jeronimodesign.com#readme",
+  "dependencies": {
+    "faunadb": "^4.7.1"
+  }
 }
