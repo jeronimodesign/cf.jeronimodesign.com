@@ -4,7 +4,7 @@ async function errorHandler(context) {
   try {
     const ipAddress = context.request.headers.get('CF-Connecting-IP');
     if (!await isValidIPAddress(ipAddress)) {
-      throw new Error('No valid ip address found: ' + ipAddress);
+      throw new Error('No valid ip address found');
     }
 
     context.data.timestamp = Date.now();
