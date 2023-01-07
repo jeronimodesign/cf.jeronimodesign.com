@@ -1,4 +1,5 @@
 import { getDNSRecord } from './cloudflare.js';
+import { getType } from './cloudflare.js';
 import { getZone } from './cloudflare.js';
 
 export async function onRequest(context) {
@@ -15,10 +16,7 @@ export async function onRequest(context) {
         domain = domain.replace(/^[^.]+\./g, '');
     }
 
-    const type = searchParams.get('type');
-    if (!type) {
-        throw 'no type parameter given';
-    }
+    const type = await getType(searchParams.get('type'));
 
     const zone = await getZone(context, domain);
 

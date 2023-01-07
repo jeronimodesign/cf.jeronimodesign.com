@@ -1,7 +1,11 @@
 import { gatherResponse } from "../util.js";
 
 const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
-    userBaseUrl = 'https://api.cloudflare.com/client/v4/user';
+    userBaseUrl = 'https://api.cloudflare.com/client/v4/user',
+    validTypes = [
+        'A',
+        'AAAA',
+    ];
 
 function cloudflareError(title, errors) {
     let msg = `${title}\n`;
@@ -125,4 +129,18 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
     }
 
     return results.result;
+}
+
+export async function getType(uType) {
+    if (typeof uType !== 'string') {
+        throw cloudflareError('type is not a string');
+    }
+
+    uType = uType.toUpperCase();
+
+    if (validTypes.indexOf(uType) === -1) {
+        throw cloudflareError('not a valid type');
+    }
+
+    return uType;
 }
