@@ -113,7 +113,7 @@ export async function updateDNSRecord(context, zoneId, dnsRecordId) {
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Authorization': 'Bearer ' + context.env.TOKEN_ZONE_WRITE
             },
-            data: JSON.stringify(data),
+            body: JSON.stringify(data),
         };
 
     const response = await fetch(zoneBaseUrl + '/' + zoneId + '/dns_records/' + dnsRecordId, init);
