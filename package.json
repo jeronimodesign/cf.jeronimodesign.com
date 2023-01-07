@@ -2,8 +2,8 @@
   "dependencies": {
     "faunadb": "^4.7.1"
   },
-  "name": "api.jeronimodesign.com",
-  "description": "Test of Cloudflare Pages to replace api.jeronimodesign.com",
+  "name": "cf.jeronimodesign.com",
+  "description": "Test of Cloudflare Pages to replace symfony project",
   "version": "1.0.0",
   "main": "functions/index.js",
   "devDependencies": {},
