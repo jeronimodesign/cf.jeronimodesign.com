@@ -7,7 +7,7 @@ const zoneBaseUrl = 'https://api.cloudflare.com/client/v4/zones',
         'AAAA',
     ];
 
-function cloudflareError(title, errors) {
+function cloudflareError(title, errors = []) {
     let msg = `${title}\n`;
 
     for (let i = 0; i < errors.length; i++) {
