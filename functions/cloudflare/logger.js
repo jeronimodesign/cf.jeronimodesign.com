@@ -21,9 +21,9 @@ export async function logDNSRecord(context, data) {
 
     const results = JSON.parse(await gatherResponse(response));
 
-    if (results.success !== true) {
-        // throw new Error('cannot log dns record information');
-    }
+    // if (results.success !== true) {
+    //     throw new Error('cannot log dns record information');
+    // }
 
     return results;
 }
