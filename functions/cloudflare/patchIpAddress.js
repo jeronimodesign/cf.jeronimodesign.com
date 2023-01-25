@@ -26,13 +26,14 @@ export async function onRequest(context) {
 
     const data = await updateDNSRecord(context, zone.result.id, dnsRecord.result.id);
 
-    await logDNSRecord(context, data);
+    const logResult = await logDNSRecord(context, data);
 
     return new Response(JSON.stringify({
         status: "OK",
         data: data,
+        log_result: logResult,
     }), {
-        headers: { 
+        headers: {
             'content-type': 'application/json;charset=UTF-8',
             'X-ProcessTime': Date.now() - context.data.timestamp
         }
