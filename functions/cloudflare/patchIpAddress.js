@@ -26,12 +26,12 @@ export async function onRequest(context) {
 
     const data = await updateDNSRecord(context, zone.result.id, dnsRecord.result.id);
 
-    const logResult = await logDNSRecord(context, data);
+    const logResponse = await logDNSRecord(context, data);
 
     return new Response(JSON.stringify({
         status: "OK",
         data: data,
-        log_result: logResult,
+        logger: logResponse,
     }), {
         headers: {
             'content-type': 'application/json;charset=UTF-8',
