@@ -2,7 +2,7 @@ import { getDNSRecord } from './cloudflare.js';
 import { getZone } from './cloudflare.js';
 import { getType } from './cloudflare.js';
 import { updateDNSRecord } from './cloudflare.js';
-import { logDNSRecord } from './logger.js';
+// import { logDNSRecord } from './logger.js';
 
 export async function onRequest(context) {
     const { searchParams } = new URL(context.request.url);
@@ -26,7 +26,7 @@ export async function onRequest(context) {
 
     const data = await updateDNSRecord(context, zone.result.id, dnsRecord.result.id);
 
-    const logResponse = await logDNSRecord(context, data);
+    // const logResponse = await logDNSRecord(context, data);
 
     return new Response(JSON.stringify({
         status: "OK",
